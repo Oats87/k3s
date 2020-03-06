@@ -2,8 +2,6 @@ FROM registry.redhat.io/rhel8/go-toolset:latest
 
 USER 0
 
-RUN dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && dnf install --nobest -y docker-ce jq python2 libffi-devel libseccomp-devel libuv
-
 #RUN apk -U --no-cache add bash git gcc musl-dev docker vim less file curl wget ca-certificates jq linux-headers zlib-dev tar zip squashfs-tools npm coreutils \
 #    python2 openssl-dev libffi-dev libseccomp libseccomp-dev make libuv-static
 
