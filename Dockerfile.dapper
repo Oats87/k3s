@@ -7,9 +7,10 @@ USER 0
 
 #RUN apk -U --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/main/ add sqlite-dev sqlite-static libselinux libselinux-dev
 
+GOPATH=/go
 
-RUN mkdir -p /opt/app-root/src/go/src/golang.org/x && \
-    cd /opt/app-root/src//go/src/golang.org/x && git clone https://github.com/golang/tools && cd tools && \
+RUN mkdir -p /go/src/golang.org/x && \
+    cd /go/src/golang.org/x && git clone https://github.com/golang/tools && cd tools && \
     git checkout -b current aa82965741a9fecd12b026fbb3d3c6ed3231b8f8 && \
     go install golang.org/x/tools/cmd/goimports && cd
 #RUN rm -rf /go/src /go/pkg
@@ -33,9 +34,9 @@ ENV SELINUX $SELINUX
 #    ;fi
 
 ENV GO111MODULE off
-ENV DAPPER_RUN_ARGS --privileged -v k3s-cache:/opt/app-root/src/go/src/github.com/rancher/k3s/.cache --mount type=bind,source=/etc/pki/entitlement,target=/run/secrets/etc-pki-entitlement,readonly --mount type=bind,source=/etc/yum.repos.d/redhat.repo,target=/run/secrets/rhel7.repo,readonly --mount type=bind,source=/etc/rhsm,target=/run/secrets/rhsm,readonly
+ENV DAPPER_RUN_ARGS --privileged -v k3s-cache:/go/src/github.com/rancher/k3s/.cache --mount type=bind,source=/etc/pki/entitlement,target=/run/secrets/etc-pki-entitlement,readonly --mount type=bind,source=/etc/yum.repos.d/redhat.repo,target=/run/secrets/rhel7.repo,readonly --mount type=bind,source=/etc/rhsm,target=/run/secrets/rhsm,readonly
 ENV DAPPER_ENV REPO TAG DRONE_TAG IMAGE_NAME SKIP_VALIDATE GCLOUD_AUTH
-ENV DAPPER_SOURCE /opt/app-root/src/go/src/github.com/rancher/k3s/
+ENV DAPPER_SOURCE /go/src/github.com/rancher/k3s/
 ENV DAPPER_OUTPUT ./bin ./dist ./build/out
 ENV DAPPER_DOCKER_SOCKET true
 ENV HOME ${DAPPER_SOURCE}
