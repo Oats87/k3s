@@ -8,11 +8,11 @@ USER 0
 #RUN apk -U --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/main/ add sqlite-dev sqlite-static libselinux libselinux-dev
 
 
-RUN mkdir -p /go/src/golang.org/x && \
-    cd /go/src/golang.org/x && git clone https://github.com/golang/tools && cd tools && \
+RUN mkdir -p /opt/app-root/src/go/src/golang.org/x && \
+    cd /opt/app-root/src//go/src/golang.org/x && git clone https://github.com/golang/tools && cd tools && \
     git checkout -b current aa82965741a9fecd12b026fbb3d3c6ed3231b8f8 && \
     go install golang.org/x/tools/cmd/goimports && cd
-RUN rm -rf /go/src /go/pkg
+#RUN rm -rf /go/src /go/pkg
 
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
