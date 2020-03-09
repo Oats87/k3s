@@ -32,7 +32,7 @@ dnf builddep -y ~/rpmbuild/SPECS/zlib.spec
 rpmbuild -bp ~/rpmbuild/SPECS/zlib.spec
 cd ~/rpmbuild/BUILD/zlib-*
 ./configure
-mak
+make
 ln -s libz.a /usr/lib64/libz.a
 
 cd ~
