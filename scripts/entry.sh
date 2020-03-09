@@ -6,9 +6,9 @@ dnf install --nobest -y docker-ce jq python2 libffi-devel libseccomp-devel libuv
 
 dnf download --source sqlite-libs
 rpm -ivh sqlite-*src.rpm
+dnf builddep -y ~/rpmbuild/SPECS/sqlite.spec
 rpmbuild -bp ~/rpmbuild/SPECS/sqlite.spec
 cd ~/rpmbuild/BUILD/sqlite-src-*
-dnf builddep -y ~/rpmbuild/SPECS/sqlite.spec
 ./configure
 make
 cp .libs/libsqlite3.a /usr/lib64
