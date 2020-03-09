@@ -61,7 +61,7 @@ if [ "$STATIC_BUILD" != "true" ]; then
 "
     RUNC_STATIC=""
 else
-    TAGS="static_build $TAGS"
+    TAGS="static_build libsqlite3 $TAGS"
 fi
 
 mkdir -p bin
