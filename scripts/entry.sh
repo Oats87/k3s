@@ -8,6 +8,7 @@ dnf download --source sqlite-libs
 rpm -ivh sqlite-*src.rpm
 rpmbuild -bp ~/rpmbuild/SPECS/sqlite.spec
 cd ~/rpmbuild/BUILD/sqlite-src-*
+dnf builddep -y ~/rpmbuild/SPECS/sqlite.spec
 ./configure
 make
 cp .libs/libsqlite3.a /usr/lib64
