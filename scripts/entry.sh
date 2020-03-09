@@ -2,7 +2,7 @@
 set -e
 
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-dnf install --nobest -y docker-ce jq python2 libffi-devel libseccomp-devel libuv glibc-static sqlite sqlite-libs gcc rpm-build
+dnf install --nobest -y docker-ce jq python2 libffi-devel libseccomp-devel libuv glibc-static sqlite sqlite-libs gcc rpm-build zlib-devel
 
 dnf download --source sqlite-libs
 rpm -ivh sqlite-*src.rpm
@@ -24,6 +24,17 @@ cd ~/rpmbuild/BUILD/libseccomp-*
 make
 make install
 ln -s /usr/local/lib/libseccomp.a /usr/lib64/libseccomp.a
+cd ~
+
+dnf download --source zlib-devel
+rpm -ivh zlib-*.rpm
+dnf builddep -y ~/rpmbuild/SPECS/zlib.spec
+rpmbuild -bp ~/rpmbuild/SPECS/zlib.spec
+cd ~/rpmbuild/BUILD/zlib-*
+./configure
+mak
+ln -s libz.a /usr/lib64/libz.a
+
 cd ~
 
 mkdir -p bin dist
