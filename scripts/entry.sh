@@ -33,7 +33,7 @@ rpmbuild -bp ~/rpmbuild/SPECS/zlib.spec
 cd ~/rpmbuild/BUILD/zlib-*
 ./configure
 make
-ln -s libz.a /usr/lib64/libz.a
+cp libz.a /usr/lib64/libz.a
 
 cd ~
 
