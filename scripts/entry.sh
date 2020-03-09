@@ -13,6 +13,19 @@ cd ~/rpmbuild/BUILD/sqlite-src-*
 make
 cp .libs/libsqlite3.a /usr/lib64
 
+cd ~
+
+dnf download --source libseccomp-devel
+rpm -ivh libseccomp-*src.rpm
+dnf builddep -y ~/rpmbuild/SPECS/libseccomp.spec
+rpmbuild -bp ~/rpmbuild/SPECS/libseccomp.spec
+cd ~/rpmbuild/BUILD/libseccomp-*
+./configure
+make
+make install
+ln -s /usr/local/lib/libseccomp.a /usr/lib64/libseccomp.a
+cd ~
+
 mkdir -p bin dist
 if [ -e ./scripts/$1 ]; then
     ./scripts/"$@"
