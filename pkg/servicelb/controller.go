@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	image              = "quay.fremont.rancherlabs.com/ckim/service-lb:v0.0.1"
+	image              = "quay.fremont.rancherlabs.com/ckim/service-lb:v0.0.2"
 	svcNameLabel       = "svccontroller.k3s.cattle.io/svcname"
 	daemonsetNodeLabel = "svccontroller.k3s.cattle.io/enablelb"
 	nodeSelectorLabel  = "svccontroller.k3s.cattle.io/nodeselector"
