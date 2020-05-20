@@ -4,13 +4,13 @@ cd $(dirname $0)/..
 
 . ./scripts/version.sh
 
-ROOT_VERSION=v0.5.0
+ROOT_VERSION=nft-1-8-3
 TRAEFIK_VERSION=1.81.0
 CHARTS_DIR=build/static/charts
 
 mkdir -p ${CHARTS_DIR}
 
-curl --compressed -sfL https://github.com/rancher/k3s-root/releases/download/${ROOT_VERSION}/k3s-root-${ARCH}.tar | tar xf -
+curl --compressed -sfL https://github.com/Oats87/k3s-root/releases/download/${ROOT_VERSION}/k3s-root-${ARCH}.tar | tar xf -
 ln -sf pigz bin/unpigz
 cp scripts/iptables-detect.sh bin/
 cp scripts/xtables-set-mode.sh bin/
