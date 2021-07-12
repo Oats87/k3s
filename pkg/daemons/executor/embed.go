@@ -38,7 +38,7 @@ func (Embedded) Bootstrap(ctx context.Context, nodeConfig *daemonconfig.Node, cf
 	return nil
 }
 
-func (Embedded) Kubelet(args []string) error {
+func (Embedded) Kubelet(args []string, extras map[string]interface{}) error {
 	command := kubelet.NewKubeletCommand(context.Background())
 	command.SetArgs(args)
 
@@ -49,7 +49,7 @@ func (Embedded) Kubelet(args []string) error {
 	return nil
 }
 
-func (Embedded) KubeProxy(args []string) error {
+func (Embedded) KubeProxy(args []string, extras map[string]interface{}) error {
 	command := proxy.NewProxyCommand()
 	command.SetArgs(args)
 
@@ -60,7 +60,7 @@ func (Embedded) KubeProxy(args []string) error {
 	return nil
 }
 
-func (Embedded) APIServer(ctx context.Context, etcdReady <-chan struct{}, args []string) (authenticator.Request, http.Handler, error) {
+func (Embedded) APIServer(ctx context.Context, etcdReady <-chan struct{}, args []string, extras map[string]interface{}) (authenticator.Request, http.Handler, error) {
 	<-etcdReady
 	command := app.NewAPIServerCommand(ctx.Done())
 	command.SetArgs(args)
@@ -73,7 +73,7 @@ func (Embedded) APIServer(ctx context.Context, etcdReady <-chan struct{}, args [
 	return startupConfig.Authenticator, startupConfig.Handler, nil
 }
 
-func (Embedded) Scheduler(apiReady <-chan struct{}, args []string) error {
+func (Embedded) Scheduler(apiReady <-chan struct{}, args []string, extras map[string]interface{}) error {
 	command := sapp.NewSchedulerCommand()
 	command.SetArgs(args)
 
@@ -85,7 +85,7 @@ func (Embedded) Scheduler(apiReady <-chan struct{}, args []string) error {
 	return nil
 }
 
-func (Embedded) ControllerManager(apiReady <-chan struct{}, args []string) error {
+func (Embedded) ControllerManager(apiReady <-chan struct{}, args []string, extras map[string]interface{}) error {
 	command := cmapp.NewControllerManagerCommand()
 	command.SetArgs(args)
 
@@ -97,7 +97,7 @@ func (Embedded) ControllerManager(apiReady <-chan struct{}, args []string) error
 	return nil
 }
 
-func (Embedded) CloudControllerManager(ccmRBACReady <-chan struct{}, args []string) error {
+func (Embedded) CloudControllerManager(ccmRBACReady <-chan struct{}, args []string, extras map[string]interface{}) error {
 	ccmOptions, err := ccmopt.NewCloudControllerManagerOptions()
 	if err != nil {
 		logrus.Fatalf("unable to initialize command options: %v", err)
